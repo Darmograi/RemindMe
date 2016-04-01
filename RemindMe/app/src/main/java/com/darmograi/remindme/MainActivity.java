@@ -1,10 +1,14 @@
 package com.darmograi.remindme;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.darmograi.remindme.adapter.TabsPagerFragmentAdapter;
 
 /**
  * Created by Oleksandr Husliakov on 18.03.2016.
@@ -13,8 +17,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private static final int LAYOUT = R.layout.activity_main;
-
     private DrawerLayout drawerLayout;
+    private ViewPager viewPager;
+//    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
         initToolbar();
         initNavigationView();
+
+        initTabs();
+
     }
 
     private void initToolbar() {
@@ -40,8 +48,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    private void initTabs() {
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        TabsPagerFragmentAdapter adapter = new TabsPagerFragmentAdapter(getSupportFragmentManager());
+
+        viewPager.setAdapter(adapter);
+        //initialize tabs
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
     private void initNavigationView() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
     }
+
 }
